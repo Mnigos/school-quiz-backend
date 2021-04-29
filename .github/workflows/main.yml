@@ -40,8 +40,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - name: Add codecov 📈💻
-        run: yarn add codecov
 
       - name: Install dependencies 👨🏻‍💻
         run: yarn
@@ -54,10 +52,3 @@ jobs:
         
       - name: Run e2e tests 🧪
         run: yarn jest --config ./test/jest-e2e.json --forceExit
-
-      - name: Collect coverage📊
-        env: 
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        run: |
-          yarn jest --forceExit --coverage
-          yarn codecov
