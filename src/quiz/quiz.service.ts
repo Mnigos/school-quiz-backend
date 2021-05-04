@@ -17,7 +17,7 @@ export class QuizService {
     return quiz.questions
   }
 
-  async checkAnswers(taker: Taker, quizId: string): Promise<any> {
+  async checkAnswers(taker: Taker, quizId: string): Promise<number | HttpStatus> {
     const quiz = await this.QuizModel.findOne({ _id: quizId })
 
     if (!quiz) return HttpStatus.BAD_REQUEST
@@ -25,7 +25,14 @@ export class QuizService {
     let score = 0
 
     quiz.rightAnswers.forEach((answer, i) => {
-      if (answer === taker.answers[i]) score++
+      if (answer === taker.answers[i]) ++score
     })
+
+    taker.score = score
+    quiz.takers.push(taker)
+
+    this.QuizModel.updateOne({ _id: quizId }, quiz)
+
+    return score
   }
 }
