@@ -1,7 +1,7 @@
-import { question } from './question.interface'
+import { Question } from './question.interface'
 
-export interface quizDoc {
+export interface Quiz {
   name: string
-  questions: question[]
+  questions: Question[]
   rightAnswers: number[]
 }

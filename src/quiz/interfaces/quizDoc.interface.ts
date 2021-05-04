@@ -1,8 +1,8 @@
 import { Document } from 'mongoose'
-import { question } from './question.interface'
+import { Question } from './question.interface'
 
-export interface quizDoc extends Document {
+export interface QuizDoc extends Document {
   name: string
-  questions: question[]
+  questions: Question[]
   rightAnswers: number[]
 }
