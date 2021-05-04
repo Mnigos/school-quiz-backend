@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 import { AppController } from './app.controller'
 import { MongooseModule } from '@nestjs/mongoose'
 import { AppService } from './app.service'
+import { QuizModule } from './quiz/quiz.module'
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { AppService } from './app.service'
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.MONGO_URI),
+    QuizModule,
   ],
   controllers: [AppController],
   providers: [AppService],
