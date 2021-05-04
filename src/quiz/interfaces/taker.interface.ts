@@ -1,6 +1,6 @@
 export interface Taker {
   name: string
   surename: string
-  answers?: number[]
-  score?: number
+  answers: string[]
+  score: number | undefined
 }

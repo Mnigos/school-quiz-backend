@@ -11,5 +11,5 @@ export const QuizSchema = new Schema({
       answers: [{ type: String, required: false }],
     },
   ],
-  rightQuestions: [{ type: Number, required: true }],
+  rightQuestions: [{ type: String, required: true }],
 })
