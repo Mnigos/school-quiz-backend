@@ -12,4 +12,12 @@ export const QuizSchema = new Schema({
     },
   ],
   rightQuestions: [{ type: String, required: true }],
+  takers: [
+    {
+      name: { type: String, required: true },
+      surename: { type: String, required: true },
+      answers: [{ type: String, required: true }],
+      score: { type: Number },
+    },
+  ],
 })
