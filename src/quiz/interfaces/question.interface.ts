@@ -3,5 +3,4 @@ export interface Question {
   img: string
   questionType: 'radio' | 'checkbox' | 'text'
   description: string
-  answers: string[] | string
 }
