@@ -1,10 +1,10 @@
 import { Document } from 'mongoose'
-import { Question } from './question.interface'
-import { Taker } from './taker.interface'
+import { IQuestion } from './question.interface'
+import { ITaker } from './taker.interface'
 
-export interface QuizDoc extends Document {
+export interface IQuizDoc extends Document {
   name: string
-  questions: Question[]
+  questions: IQuestion[]
   rightAnswers: string[]
-  takers: Taker[]
+  takers: ITaker[]
 }
