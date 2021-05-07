@@ -9,8 +9,8 @@ import { ITaker } from './interfaces/taker.interface'
 export class QuizService {
   constructor(@InjectModel('quiz') private readonly QuizModel: Model<IQuizDoc>) {}
 
-  async getQuestions(quizId: string): Promise<IQuestion[] | HttpStatus> {
-    const quiz = await this.QuizModel.findOne({ _id: quizId })
+  async getQuestions(key: string): Promise<IQuestion[] | HttpStatus> {
+    const quiz = await this.QuizModel.findOne({ quizKey: key })
 
     if (!quiz) return HttpStatus.BAD_REQUEST
 
