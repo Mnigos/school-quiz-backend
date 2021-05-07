@@ -6,5 +6,6 @@ export interface IQuizDoc extends Document {
   name: string
   questions: IQuestion[]
   rightAnswers: string[]
+  quizKeys: string[]
   takers: ITaker[]
 }

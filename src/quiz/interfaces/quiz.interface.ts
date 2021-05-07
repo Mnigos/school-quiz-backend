@@ -5,5 +5,6 @@ export interface IQuiz {
   name: string
   questions: IQuestion[]
   rightAnswers: string[]
+  quizKeys: string[]
   takers: ITaker[]
 }
