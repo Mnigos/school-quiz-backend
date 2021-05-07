@@ -1,9 +1,9 @@
-import { Question } from './question.interface'
-import { Taker } from './taker.interface'
+import { IQuestion } from './question.interface'
+import { ITaker } from './taker.interface'
 
-export interface Quiz {
+export interface IQuiz {
   name: string
-  questions: Question[]
+  questions: IQuestion[]
   rightAnswers: string[]
-  takers: Taker[]
+  takers: ITaker[]
 }

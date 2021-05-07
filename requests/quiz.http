@@ -1,0 +1,16 @@
+### Get Test
+POST  /quiz/get/0 HTTP/1.1
+Host: localhost:3000
+
+### Send Answer
+POST  /quiz/send/0 HTTP/1.1
+Host: localhost:3000
+
+{
+  "taker": {
+    "name": "Jan",
+    "surename": "kowalski",
+    "answers": ["test"],
+    "score": 0
+  }
+}

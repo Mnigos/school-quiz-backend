@@ -1,15 +1,15 @@
 import { HttpStatus, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
-import { Question } from './interfaces/question.interface'
-import { QuizDoc } from './interfaces/quizDoc.interface'
-import { Taker } from './interfaces/taker.interface'
+import { IQuestion } from './interfaces/question.interface'
+import { IQuizDoc } from './interfaces/quizDoc.interface'
+import { ITaker } from './interfaces/taker.interface'
 
 @Injectable()
 export class QuizService {
-  constructor(@InjectModel('quiz') private readonly QuizModel: Model<QuizDoc>) {}
+  constructor(@InjectModel('quiz') private readonly QuizModel: Model<IQuizDoc>) {}
 
-  async getQuestions(quizId: string): Promise<Question[] | HttpStatus> {
+  async getQuestions(quizId: string): Promise<IQuestion[] | HttpStatus> {
     const quiz = await this.QuizModel.findOne({ _id: quizId })
 
     if (!quiz) return HttpStatus.BAD_REQUEST
@@ -17,7 +17,7 @@ export class QuizService {
     return quiz.questions
   }
 
-  async checkAnswers(taker: Taker, quizId: string): Promise<number | HttpStatus> {
+  async checkAnswers(taker: ITaker, quizId: string): Promise<number | HttpStatus> {
     const quiz = await this.QuizModel.findOne({ _id: quizId })
 
     if (!quiz) return HttpStatus.BAD_REQUEST
