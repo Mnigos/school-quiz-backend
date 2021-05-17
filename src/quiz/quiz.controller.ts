@@ -1,12 +1,19 @@
-import { Controller, Param, Post } from '@nestjs/common'
+import { Controller, Body, Post, HttpStatus } from '@nestjs/common'
+import { IQuestion } from './interfaces/question.interface'
+import { ITaker } from './interfaces/taker.interface'
 import { QuizService } from './quiz.service'
 
 @Controller('quiz')
 export class QuizController {
   constructor(private readonly quizService: QuizService) {}
 
-  @Post('get/:id')
-  getQuestions(@Param('id') id: string) {
-    return this.quizService.getQuestions(id)
+  @Post()
+  getQuestions(@Body() key: string): Promise<{ questions: IQuestion[]; id: string } | HttpStatus> {
+    return this.quizService.getQuestions(key)
+  }
+
+  @Post('/check')
+  checkAnswers(taker: ITaker, quizId: string): Promise<number | HttpStatus> {
+    return this.quizService.checkAnswers(taker, quizId)
   }
 }
