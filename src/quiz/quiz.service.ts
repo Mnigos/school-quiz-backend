@@ -9,12 +9,14 @@ import { ITaker } from './interfaces/taker.interface'
 export class QuizService {
   constructor(@InjectModel('quiz') private readonly QuizModel: Model<IQuizDoc>) {}
 
-  async getQuestions(key: string): Promise<IQuestion[] | HttpStatus> {
+  async getQuestions(key: string): Promise<{ questions: IQuestion[]; id: string } | HttpStatus> {
     const quiz = await this.QuizModel.findOne({ quizKey: key })
 
     if (!quiz) return HttpStatus.BAD_REQUEST
-
-    return quiz.questions
+    return {
+      questions: quiz.questions,
+      id: quiz.id,
+    }
   }
 
   async checkAnswers(taker: ITaker, quizId: string): Promise<number | HttpStatus> {
