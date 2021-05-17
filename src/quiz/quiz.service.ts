@@ -25,7 +25,7 @@ export class QuizService {
     let score = 0
 
     quiz.rightAnswers.forEach((answer, i) => {
-      if (answer === taker.answers[i]) ++score
+      if (answer === taker.answers[i].answer) ++score
     })
 
     taker.score = score
