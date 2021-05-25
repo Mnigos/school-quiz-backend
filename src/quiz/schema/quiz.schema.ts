@@ -22,5 +22,5 @@ export const QuizSchema = new Schema({
       score: { type: [Number, undefined] },
     },
   ],
-  quizKey: { type: String, required: false },
+  quizKey: { type: String, required: true,  default: () => generateKey() },
 })
