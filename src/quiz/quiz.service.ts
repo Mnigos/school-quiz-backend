@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { IQuestion } from './interfaces/question.interface'
 import { IQuizDoc } from './interfaces/quizDoc.interface'
+import { IQuiz } from './interfaces/quiz.interface'
 import { ITaker } from './interfaces/taker.interface'
 
 @Injectable()
@@ -36,5 +37,9 @@ export class QuizService {
     this.QuizModel.updateOne({ _id: quizId }, quiz)
 
     return score
+  }
+
+  async createQuiz(quiz: IQuiz): Promise<IQuiz> {
+    return await this.QuizModel.create(quiz)
   }
 }
