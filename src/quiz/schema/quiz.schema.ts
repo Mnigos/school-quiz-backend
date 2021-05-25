@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose'
 import { v5 as uuidv5 } from 'uuid'
+import { generateKey } from '../functions/genereteKey'
 
 export const QuizSchema = new Schema({
   name: { type: String, required: true },
@@ -22,5 +23,5 @@ export const QuizSchema = new Schema({
       score: { type: [Number, undefined] },
     },
   ],
-  quizKey: { type: String, required: true,  default: () => generateKey() },
+  quizKey: { type: String, required: true, default: () => generateKey() },
 })
