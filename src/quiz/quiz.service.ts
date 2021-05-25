@@ -5,6 +5,7 @@ import { IQuestion } from './interfaces/question.interface'
 import { IQuizDoc } from './interfaces/quizDoc.interface'
 import { IQuiz } from './interfaces/quiz.interface'
 import { ITaker } from './interfaces/taker.interface'
+import { generateKey } from './functions/genereteKey'
 
 @Injectable()
 export class QuizService {
@@ -53,5 +54,19 @@ export class QuizService {
     this.QuizModel.updateOne({ _id }, quiz)
 
     return (await this.QuizModel.findOne({ _id }).exec()) as IQuiz
+  }
+
+  async generateQuizKey(quizId: string): Promise<string | HttpStatus> {
+    const foundedQuiz = await this.QuizModel.findOne({ _id: quizId }).exec()
+
+    if (!foundedQuiz) return HttpStatus.BAD_REQUEST
+
+    const newKey = generateKey()
+
+    const { _id } = foundedQuiz
+
+    this.QuizModel.updateOne({ _id }, { quizKey: newKey })
+
+    return newKey
   }
 }
