@@ -11,7 +11,7 @@ export class QuizService {
   constructor(@InjectModel('quiz') private readonly QuizModel: Model<IQuizDoc>) {}
 
   async getQuestions(key: string): Promise<{ questions: IQuestion[]; id: string } | HttpStatus> {
-    const quiz = await this.QuizModel.findOne({ quizKey: key })
+    const quiz = await this.QuizModel.findOne({ quizKey: key }).exec()
 
     if (!quiz) return HttpStatus.BAD_REQUEST
     return {
@@ -21,7 +21,7 @@ export class QuizService {
   }
 
   async checkAnswers(taker: ITaker, quizId: string): Promise<number | HttpStatus> {
-    const quiz = await this.QuizModel.findOne({ _id: quizId })
+    const quiz = await this.QuizModel.findOne({ _id: quizId }).exec()
 
     if (!quiz) return HttpStatus.BAD_REQUEST
 
@@ -34,12 +34,24 @@ export class QuizService {
     taker.score = score
     quiz.takers.push(taker)
 
-    this.QuizModel.updateOne({ _id: quizId }, quiz)
+    this.QuizModel.updateOne({ _id: quizId }, quiz).exec()
 
     return score
   }
 
   async createQuiz(quiz: IQuiz): Promise<IQuiz> {
     return await this.QuizModel.create(quiz)
+  }
+
+  async updateQuiz(quiz: IQuiz): Promise<IQuiz | HttpStatus> {
+    const { _id } = quiz
+
+    const foundedQuiz = await this.QuizModel.findOne({ _id }).exec()
+
+    if (!foundedQuiz) return HttpStatus.BAD_REQUEST
+
+    this.QuizModel.updateOne({ _id }, quiz)
+
+    return (await this.QuizModel.findOne({ _id }).exec()) as IQuiz
   }
 }
