@@ -1,16 +1,99 @@
 ### Get Test
-POST  /quiz/get/0 HTTP/1.1
+POST  /quiz HTTP/1.1
 Host: localhost:3000
 
+{
+  "key": "exampleKey"
+}
+
 ### Send Answer
-POST  /quiz/send/0 HTTP/1.1
+POST  /quiz/check HTTP/1.1
 Host: localhost:3000
 
 {
   "taker": {
-    "name": "Jan",
-    "surename": "kowalski",
-    "answers": ["test"],
+    "name": "name",
+    "surename": "surename",
+    "answers": {
+      "answer": "answer",
+      "questionId": "id"
+    },
     "score": 0
+  },
+  "quizId": "id"
+}
+
+### Create
+POST  /quiz/create HTTP/1.1
+Host: localhost:3000
+
+{
+  "quiz": {
+    "name": "name",
+    "questions": [
+      {
+        "title": "title",
+        "img": "https://localhost/image.jpg",
+        "questionType": "radio",
+        "description": "description"
+      },
+      {
+        "title": "title",
+        "img": "https://localhost/image.jpg",
+        "questionType": "checkbox",
+        "description": "description"
+      },
+      {
+        "title": "title",
+        "img": "https://localhost/image.jpg",
+        "questionType": "text",
+        "description": "description"
+      },
+    ],
+    "rightAnswers": ["0", "0;1", "answer"],
+    "quizKey": "quizKey",
+    "takers": [],
   }
+}
+
+### Update
+POST  /quiz/update HTTP/1.1
+Host: localhost:3000
+
+{
+  "quiz": {
+    "_id": "quizId",
+    "name": "name",
+    "questions": [
+      {
+        "title": "title",
+        "img": "https://localhost/image.jpg",
+        "questionType": "radio",
+        "description": "description"
+      },
+      {
+        "title": "title",
+        "img": "https://localhost/image.jpg",
+        "questionType": "checkbox",
+        "description": "description"
+      },
+      {
+        "title": "title",
+        "img": "https://localhost/image.jpg",
+        "questionType": "text",
+        "description": "description"
+      },
+    ],
+    "rightAnswers": ["0", "0;1", "answer"],
+    "quizKey": "quizKey",
+    "takers": [],
+  }
+}
+
+### GenerateKey
+POST  /quiz/generateKey HTTP/1.1
+Host: localhost:3000
+
+{
+  "quizId": "id"
 }

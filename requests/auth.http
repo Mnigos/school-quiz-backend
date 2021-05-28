@@ -1,0 +1,26 @@
+### Register
+POST  /auth/register HTTP/1.1
+Host: localhost:3000
+
+{
+  "user":{
+    "name": "username",
+    "pass": "password"
+  }
+}
+
+### Login
+POST  /auth/login HTTP/1.1
+Host: localhost:3000
+
+{
+  "user":{
+    "name": "username",
+    "pass": "password"
+  }
+}
+
+### User
+POST  /auth/user HTTP/1.1
+Host: localhost:3000
+Cookie: access_token=exampleToken
