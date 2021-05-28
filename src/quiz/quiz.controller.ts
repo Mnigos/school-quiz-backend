@@ -1,4 +1,4 @@
-import { Controller, Body, Post, HttpStatus, UseGuards } from '@nestjs/common'
+import { Controller, Body, Post, HttpStatus, UseGuards, Get, Param } from '@nestjs/common'
 import { LocalAuthGuard } from 'src/auth/local-auth.guard'
 import { IQuestion } from './interfaces/question.interface'
 import { IQuiz } from './interfaces/quiz.interface'
@@ -9,7 +9,19 @@ import { QuizService } from './quiz.service'
 export class QuizController {
   constructor(private readonly quizService: QuizService) {}
 
-  @Post()
+  @UseGuards(LocalAuthGuard)
+  @Get()
+  getQuizes(): Promise<{ _id: string; name: string }[]> {
+    return this.quizService.getQuizes()
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Get('/:id')
+  getQuiz(@Param('id') id: string): Promise<IQuiz> {
+    return this.quizService.getQuiz(id)
+  }
+
+  @Post('/questions')
   getQuestions(@Body() key: string): Promise<{ questions: IQuestion[]; id: string } | HttpStatus> {
     return this.quizService.getQuestions(key)
   }
