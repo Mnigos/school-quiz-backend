@@ -11,6 +11,10 @@ import { generateKey } from './functions/genereteKey'
 export class QuizService {
   constructor(@InjectModel('Quizes') private readonly QuizModel: Model<IQuizDoc>) {}
 
+  async getQuizes(): Promise<IQuiz[]> {
+    return await this.QuizModel.find().exec()
+  }
+
   async getQuestions(key: string): Promise<{ questions: IQuestion[]; id: string } | HttpStatus> {
     const quiz = await this.QuizModel.findOne({ quizKey: key }).exec()
 
