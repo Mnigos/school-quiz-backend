@@ -9,7 +9,7 @@ import { generateKey } from './functions/genereteKey'
 
 @Injectable()
 export class QuizService {
-  constructor(@InjectModel('quiz') private readonly QuizModel: Model<IQuizDoc>) {}
+  constructor(@InjectModel('Quizes') private readonly QuizModel: Model<IQuizDoc>) {}
 
   async getQuestions(key: string): Promise<{ questions: IQuestion[]; id: string } | HttpStatus> {
     const quiz = await this.QuizModel.findOne({ quizKey: key }).exec()
