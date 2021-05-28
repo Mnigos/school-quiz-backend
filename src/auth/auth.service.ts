@@ -26,7 +26,9 @@ export class AuthService {
     return null
   }
 
-  async login(user: IUser): Promise<any> {
+  async login(user: IUser): Promise<{ access_token: string } | HttpStatus> {
+    if (!user) return HttpStatus.BAD_REQUEST
+
     const { name, _id } = user
 
     return {

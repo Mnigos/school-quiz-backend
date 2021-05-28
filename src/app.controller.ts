@@ -1,4 +1,4 @@
-import { Controller, Request, Post, UseGuards, Res, Get } from '@nestjs/common'
+import { Controller, Request, Post, UseGuards, Res, Get, HttpStatus } from '@nestjs/common'
 import { AuthService } from './auth/auth.service'
 import { LocalAuthGuard } from './auth/local-auth.guard'
 
@@ -14,7 +14,11 @@ export class AppController {
 
   @Post('auth/login')
   async login(@Request() req, @Res({ passthrough: true }) res) {
-    const { access_token } = await this.authService.login(req.body)
+    const service = await this.authService.login(req.body)
+
+    if (service === HttpStatus.BAD_REQUEST) return service
+
+    const { access_token } = service
 
     res.cookie('jwt', access_token, { httpOnly: true })
 
