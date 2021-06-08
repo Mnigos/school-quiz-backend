@@ -18,7 +18,7 @@ export class AppController {
 
     if (service === HttpStatus.BAD_REQUEST) return service
 
-    const { access_token } = service
+    const { access_token } = service as { access_token: string }
 
     res.cookie('jwt', access_token, { httpOnly: true })
 
@@ -27,6 +27,8 @@ export class AppController {
 
   @Get('auth/user')
   async user(@Request() req) {
+    if (!req.cookie) return HttpStatus.BAD_REQUEST
+
     return { access_token: req.cookies['jwt'] }
   }
 }
